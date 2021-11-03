@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       uuid: {
-        type: Sequelize.UUIDV4
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
       },
       nama: {
         type: Sequelize.STRING
@@ -32,6 +33,7 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    
     .then(() => queryInterface.addIndex('Kecamatans', ['uuid']));
   },
   down: (queryInterface, Sequelize) => {

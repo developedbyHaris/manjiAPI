@@ -9,12 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       uuid: {
-        type: Sequelize.UUIDV4
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
       },
       nama: {
         type: Sequelize.STRING
       },
       waktu: {
+        type: Sequelize.STRING
+      },
+      tanggal:{
         type: Sequelize.DATE
       },
       lat: {
@@ -24,7 +28,7 @@ module.exports = {
         type: Sequelize.DOUBLE
       },
       kecamatan_id: {
-        type: Sequelize.UUIDV4
+        type: Sequelize.UUID
       },
       status: {
         type: Sequelize.TEXT
@@ -42,11 +46,12 @@ module.exports = {
       }
     })
     .then(() => {
-        queryInterface.addConstraint('Data_kasus', ['kecamatan_id'], {
+        queryInterface.addConstraint('Data_kasus',  {
+          fields: ['kecamatan_id'],
           type: 'foreign key',
+          name: 'data_kasus_kecamatan_id_fk',
           references: {
-            name: 'data_kasus_kecamatan_id_fk',
-            table: 'kecamatan',
+            table: 'Kecamatans',
             field: 'uuid'
           },
         })

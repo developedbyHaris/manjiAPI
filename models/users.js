@@ -49,10 +49,6 @@ module.exports = (sequelize, DataTypes) => {
     role_id: {
       allowNull: false,
       type : DataTypes.UUID
-    },
-    is_active : {
-      allowNull: false,
-      type : DataTypes.BOOLEAN
     }
   }, {});
   users.associate = function(models) {
