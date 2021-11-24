@@ -1,10 +1,29 @@
 const Model = require('../models'),
     response  = require('../helpers/response'),
-    Kecamatan = Model.Kecamatan
+    Kecamatan = Model.Kecamatan,
+    Data_kasus = Model.Data_kasus,
+    Sequelize = require('sequelize');
 
 module.exports = {
     list (req,res) {
-        Kecamatan.findAll()
+        Kecamatan.findAll({
+            
+                
+                attributes: [
+                    'uuid', 'nama', 'lat', 'long', 'kodepos',
+                    [ Sequelize.fn('COUNT', Sequelize.col('data_kasus.kecamatan_id')), 'totalKasus']], 
+               
+                include: [{
+                    // Model: {Data_kasus,  Kecamatan},
+                    all: true,
+                    attributes: [],
+                    // on: {
+                    //     col1: Sequelize.where(Sequelize.col('Kecamatan.uuid'), '=', Sequelize.col('data_kasus.kecamatan_id'))
+                    // }
+                }],
+           
+            group: ['Kecamatan.uuid']
+        })
         .then((data) => {
             return res.status(201).json( response.success('Kecamatan successfully received', data) )
         })
@@ -12,6 +31,8 @@ module.exports = {
             return res.status(500).json( response.error(err))
         })
     },
+
+    
     find (req, res) {
         Kecamatan.findOne({
             where : {

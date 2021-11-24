@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Kecamatan.associate = function(models) {
     // associations can be defined here
-    Kecamatan.hasMany(models.Data_kasus, {foreignKey: 'kecamatan_id',as: 'data_kasus'})
+    Kecamatan.hasMany(models.Data_kasus, {foreignKey: 'kecamatan_id', sourceKey: 'uuid', as: 'data_kasus'})
   
   };
   return Kecamatan;
