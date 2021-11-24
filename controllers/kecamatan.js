@@ -10,16 +10,16 @@ module.exports = {
             
                 
                 attributes: [
-                    'uuid', 'nama', 'lat', 'long', 'kodepos',
+                    'id','uuid', 'nama', 'lat', 'long', 'kodepos',
                     [ Sequelize.fn('COUNT', Sequelize.col('data_kasus.kecamatan_id')), 'totalKasus']], 
                
                 include: [{
                     // Model: {Data_kasus,  Kecamatan},
-                    all: true,
+                    // all: true,
                     attributes: [],
-                    // on: {
-                    //     col1: Sequelize.where(Sequelize.col('Kecamatan.uuid'), '=', Sequelize.col('data_kasus.kecamatan_id'))
-                    // }
+                    on: {
+                        col1: Sequelize.where(Sequelize.col('Kecamatan.uuid'), '=', Sequelize.col('data_kasus.kecamatan_id'))
+                    }
                 }],
            
             group: ['Kecamatan.uuid']
