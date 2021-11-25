@@ -7,5 +7,6 @@ router.post('/find', controller.find)
 router.post('/store', controller.create)
 router.put('/update', controller.update)
 router.delete('/remove', controller.destroy)
+router.post('/list/by/kecamatan', controller.listbygroup)
 
 module.exports = router

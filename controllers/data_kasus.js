@@ -31,6 +31,26 @@ module.exports = {
             return res.status(500).json( response.error(err))
         })
     },
+
+    listbygroup (req, res) {
+        Data_kasus.findAll({
+            where : {
+                kecamatan_id : req.body.kecamatan_id
+            },
+            include:  [{ 
+                all: true, 
+                nested: true 
+               }]
+        })
+        
+        .then((data) => {
+          
+            return res.status(200).json( response.success('Asset_Sub_Category successfully received', data) )
+        })
+        .catch((err) => {
+            return res.status(500).json( response.error(err))
+        })
+    },
     create(req, res) {
         Data_kasus.create(req.body)
         .then((data) => {
