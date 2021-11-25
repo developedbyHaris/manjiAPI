@@ -45,7 +45,7 @@ module.exports = {
         
         .then((data) => {
           
-            return res.status(200).json( response.success(`Data kasus on Kecamatan ${data.kecamatan.nama} successfully received`, data) )
+            return res.status(200).json( response.success(`Data kasus on selected Kecamatan successfully received`, data) )
         })
         .catch((err) => {
             return res.status(500).json( response.error(err))
