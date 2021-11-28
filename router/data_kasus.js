@@ -8,5 +8,6 @@ router.post('/store', controller.create)
 router.put('/update', controller.update)
 router.delete('/remove', controller.destroy)
 router.post('/list/by/kecamatan', controller.listbygroup)
+router.post('/group/by/totalkasus', controller.countbygroup)
 
 module.exports = router
