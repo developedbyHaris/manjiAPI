@@ -1,7 +1,7 @@
 const Model = require('../models'),
     response  = require('../helpers/response'),
     Data_kasus = Model.Data_kasus
-
+    Sequelize = require('sequelize');
 module.exports = {
     list (req,res) {
         Data_kasus.findAll({
@@ -41,6 +41,40 @@ module.exports = {
                 all: true, 
                 nested: true 
                }]
+        })
+        
+        .then((data) => {
+          
+            return res.status(200).json( response.success(`Data kasus on selected Kecamatan successfully received`, data) )
+        })
+        .catch((err) => {
+            return res.status(500).json( response.error(err))
+        })
+    },
+
+    countbygroup (req, res) {
+        Data_kasus.findAll({
+            where : {
+                kecamatan_id : req.body.kecamatan_id
+            },
+            attributes: { 
+                include: [
+                    
+                    [Sequelize.fn("COUNT", Sequelize.col("Data_kasus.nama")), "totalKasus"]
+                ] 
+            },
+            include: [{
+                // model: Data_kasus, 
+                attributes: [],
+                all: true, 
+                nested: true 
+            }],
+            group: ['Data_kasus.nama']
+            // include:  [{ 
+            //     all: true, 
+            //    
+            //    }]
+               
         })
         
         .then((data) => {
